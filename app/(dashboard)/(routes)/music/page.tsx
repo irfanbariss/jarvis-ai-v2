@@ -16,8 +16,10 @@ import { useRouter } from 'next/navigation'
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import { useState } from 'react'
 import Loader from '@/components/Loader'
+import { useProModal } from '@/hooks/UseProModal'
 
 const MusicPage = () => {
+  const proModal = useProModal()
   const router = useRouter()
   const [music, setMusic] = useState<string>()
 
@@ -42,8 +44,9 @@ const MusicPage = () => {
 
       form.reset()
     } catch (error: any) {
-      //TODO: Open Pro Model
-      console.log(error)
+      if (error?.response?.status === 403) {
+        proModal.onOpen()
+      }
     } finally {
       router.refresh()
     }

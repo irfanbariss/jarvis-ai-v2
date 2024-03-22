@@ -10,3 +10,4 @@ const BotAvatar = () => {
 }
 
 export default BotAvatar
+;('')
